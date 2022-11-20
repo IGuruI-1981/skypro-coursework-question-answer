@@ -1,37 +1,70 @@
 package pro.sky.skypro.coursework.question.answer.service;
 
 import org.springframework.stereotype.Service;
-import pro.sky.skypro.coursework.question.answer.Question;
+import pro.sky.skypro.coursework.question.answer.exception.QuestionAlreadyAddedException;
+import pro.sky.skypro.coursework.question.answer.exception.QuestionNotFoundException;
+import pro.sky.skypro.coursework.question.answer.model.Question;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
 
-    Set<Question> questions = new HashSet<>();
+    private final Random random;
 
-    @Override
-    public Question add(String question) {
-        return null;
+    private final Set<Question> questions;
+
+//    = new HashSet<>(Set.of(
+//            new Question("Вопрос Java #1", "Ответ Java #1"),
+//            new Question("Вопрос Java #2", "Ответ Java #2"),
+//            new Question("Вопрос Java #3", "Ответ Java #3"),
+//            new Question("Вопрос Java #4", "Ответ Java #4"),
+//            new Question("Вопрос Java #5", "Ответ Java #5"),
+//            new Question("Вопрос Java #6", "Ответ Java #6")));
+
+    public JavaQuestionService() {
+        this.random = new Random();
+        this.questions = new HashSet<>();
+    }
+
+    public Set<Question> allQuestion() {
+        return new HashSet<>(questions);
     }
 
     @Override
-    public Question add(Question question) {
-        return null;
+    public Question addQuestion(String question, String answer) {
+        return addQuestion(new Question(question,answer));
     }
 
     @Override
-    public Question remove(Question question) {
-        return null;
+    public Question addQuestion(Question question) {
+        if (!questions.add(question)) {
+            throw new QuestionAlreadyAddedException("Такой вопрос есть");
+        }
+        return question;
     }
 
     @Override
-    public Collection<Question> getAll() {
-        return null;
+    public Question removeQuestion(Question question) {
+        if (!questions.remove(question)) {
+            throw new QuestionNotFoundException("Такой вопрос не найден");
+        }
+        return question;
+    }
+
+    @Override
+    public Collection<Question> getAllQuestion() {
+        return questions;
     }
 
     @Override
     public Question getRandomQuestion() {
-        return null;
+        if (allQuestion().size()==0) {
+            return null;
+        }
+        return allQuestion().stream().skip(random.nextInt(questions.size()))
+                .findAny()
+                .orElse(null);
     }
 }

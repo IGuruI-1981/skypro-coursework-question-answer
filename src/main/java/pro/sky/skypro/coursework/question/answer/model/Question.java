@@ -1,4 +1,4 @@
-package pro.sky.skypro.coursework.question.answer;
+package pro.sky.skypro.coursework.question.answer.model;
 
 import java.util.Objects;
 
@@ -36,9 +36,6 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                '}';
+        return "Question{" + "question='" + question + '\'' + ", answer='" + answer + '\'' +'}';
     }
 }

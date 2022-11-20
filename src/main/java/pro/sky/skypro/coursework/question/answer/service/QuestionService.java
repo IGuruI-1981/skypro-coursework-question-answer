@@ -1,18 +1,18 @@
 package pro.sky.skypro.coursework.question.answer.service;
 
-import pro.sky.skypro.coursework.question.answer.Question;
+import pro.sky.skypro.coursework.question.answer.model.Question;
 
 import java.util.Collection;
 
 public interface QuestionService {
 
-    Question add(String question);
+    Question addQuestion(String question,String answer);
 
-    Question add(Question question);
+    Question addQuestion(Question question);
 
-    Question remove(Question question);
+    Question removeQuestion(Question question);
 
-    Collection<Question> getAll();
+    Collection<Question> getAllQuestion();
 
     Question getRandomQuestion();
 }
