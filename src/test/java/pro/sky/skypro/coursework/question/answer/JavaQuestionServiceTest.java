@@ -63,19 +63,20 @@ public class JavaQuestionServiceTest {
     //    Collection<Question> getAllQuestion();
 
 
-   @ParameterizedTest
-   @MethodSource("questions")
-   public void getRandomQuestionTest(Set<Question> questions) {
-       questions.forEach(javaQuestionService::addQuestion);
+    @ParameterizedTest
+    @MethodSource("questions")
+    public void getRandomQuestionTest(Set<Question> questions) {
+        questions.forEach(javaQuestionService::addQuestion);
 
-       assertThat(javaQuestionService.getRandomQuestion()).isIn(javaQuestionService.getAllQuestion());
+        assertThat(javaQuestionService.getRandomQuestion()).isIn(javaQuestionService.getAllQuestion());
     }
 
     public static Stream<Arguments> questions() {
         return Stream.of(
-                Arguments.of(new Question("Qestion1","Answer1"),
-                             new Question("Qestion2","Answer2"),
-                             new Question("Qestion3","Answer3")));
+                Arguments.of(
+                        Set.of( new Question("Qestion1", "Answer1"),
+                                new Question("Qestion2", "Answer2"),
+                                new Question("Qestion3", "Answer3"))));
     }
 
 

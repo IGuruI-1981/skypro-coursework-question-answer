@@ -5,8 +5,10 @@ import pro.sky.skypro.coursework.question.answer.exception.QuestionAlreadyAddedE
 import pro.sky.skypro.coursework.question.answer.exception.QuestionNotFoundException;
 import pro.sky.skypro.coursework.question.answer.model.Question;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 @Service
 public class JavaQuestionService implements QuestionService {
@@ -14,14 +16,6 @@ public class JavaQuestionService implements QuestionService {
     private final Random random;
 
     private final Set<Question> questions;
-
-//    = new HashSet<>(Set.of(
-//            new Question("Вопрос Java #1", "Ответ Java #1"),
-//            new Question("Вопрос Java #2", "Ответ Java #2"),
-//            new Question("Вопрос Java #3", "Ответ Java #3"),
-//            new Question("Вопрос Java #4", "Ответ Java #4"),
-//            new Question("Вопрос Java #5", "Ответ Java #5"),
-//            new Question("Вопрос Java #6", "Ответ Java #6")));
 
     public JavaQuestionService() {
         this.random = new Random();
@@ -60,7 +54,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
-        if (allQuestion().size()==0) {
+        if (questions.size()==0) {
             return null;
         }
         return allQuestion().stream().skip(random.nextInt(questions.size()))
